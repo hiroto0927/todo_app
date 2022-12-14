@@ -1,7 +1,6 @@
-import { Console } from "console";
 import React, { useContext } from "react";
 import { useState } from "react";
-import { CompContext, TaskContext } from "../../lib/provider";
+import { CustomContext } from "../../lib/initial";
 
 type TPropsCard = {
   children: React.ReactNode | JSX.Element | JSX.Element[];
@@ -9,8 +8,7 @@ type TPropsCard = {
 
 const Card = (props: TPropsCard) => {
   const [flag, setFlag] = useState<boolean>(false);
-  const { task, setTask } = useContext(TaskContext);
-  const { comp, setComp } = useContext(CompContext);
+  const { setTask } = useContext(CustomContext);
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl h-[100px]">

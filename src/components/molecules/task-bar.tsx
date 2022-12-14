@@ -1,8 +1,9 @@
 import { ChangeEvent, useContext } from "react";
-import { Mycontext } from "../../lib/provider";
+import { CustomContext } from "../../lib/initial";
 
 const TaskBar = () => {
-  const { data, setData } = useContext(Mycontext);
+  // const { setData } = useContext(Mycontext);
+  const { data, setData } = useContext(CustomContext);
 
   return (
     <div className=" flex pt-10 ">
@@ -14,6 +15,7 @@ const TaskBar = () => {
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight w-full "
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
             setData(e.target.value);
+            console.log(data);
           }}
         ></textarea>
       </div>
