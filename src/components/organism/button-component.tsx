@@ -8,7 +8,6 @@ import { ReducerContext } from "../../lib/initial-reducer";
 import { rand } from "../../lib/random";
 import { TTaskState } from "../../types/task-state";
 import ButtonUI from "../atoms/button";
-import { FlagContext } from "../template/template";
 
 type TPropsTask = {
   register: UseFormRegister<TTaskState>;
@@ -18,7 +17,7 @@ type TPropsTask = {
 
 export default function ButtonComponent(props: TPropsTask) {
   const { rstate, dispatch } = useContext(ReducerContext);
-  const { flag, setFlag } = useContext(FlagContext);
+
   return (
     <div className=" flex pr-[33%] pl-[33%] justify-evenly mt-5">
       <ButtonUI.Blue
@@ -29,7 +28,6 @@ export default function ButtonComponent(props: TPropsTask) {
           };
 
           dispatch({ type: "genelate_task", payload: { data: data } });
-          console.log(rstate.task);
         }}
       >
         Add

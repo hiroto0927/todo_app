@@ -7,38 +7,29 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../types/schema";
 import { TTaskState } from "../../types/task-state";
 import { ReducerContext } from "../../lib/initial-reducer";
-import { Flag } from "../../types/flag";
-
-const initialFlag: Flag = {
-  flag: true,
-  setFlag: () => {},
-};
-
-export const FlagContext = createContext(initialFlag);
 
 export default function Template() {
   const { register, handleSubmit, formState, watch } = useForm<TTaskState>({
     resolver: yupResolver(schema),
   });
-  const [flag, setFlag] = useState<boolean>(false);
+
   const { rstate } = useContext(ReducerContext);
 
   return (
     <div>
-      <FlagContext.Provider value={{ flag, setFlag }}>
-        <TaskBar
-          register={register}
-          handleSubmit={handleSubmit}
-          formState={formState}
-          watch={watch}
-        />
+      <TaskBar
+        register={register}
+        handleSubmit={handleSubmit}
+        formState={formState}
+        watch={watch}
+      />
 
-        <ButtonComponent
-          register={register}
-          handleSubmit={handleSubmit}
-          watch={watch}
-        />
-      </FlagContext.Provider>
+      <ButtonComponent
+        register={register}
+        handleSubmit={handleSubmit}
+        watch={watch}
+      />
+
       <div className="  mt-5">
         <div className="flex justify-evenly ">
           <div>

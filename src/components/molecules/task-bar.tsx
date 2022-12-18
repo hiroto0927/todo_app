@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   UseFormRegister,
   UseFormHandleSubmit,
@@ -7,7 +6,6 @@ import {
   SubmitHandler,
 } from "react-hook-form";
 import { TTaskState } from "../../types/task-state";
-import { FlagContext } from "../template/template";
 
 type TTaskBar = {
   register: UseFormRegister<TTaskState>;
@@ -21,8 +19,6 @@ const onSubmit: SubmitHandler<TTaskState> = (data: any) => {
 };
 
 const TaskBar = (props: TTaskBar) => {
-  const { flag } = useContext(FlagContext);
-
   return (
     <div className=" flex pt-10 ">
       <div className="block text-gray-700 text-4xl font-bold w-1/3 text-right pr-5">
