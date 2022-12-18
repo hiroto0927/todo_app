@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Template from "../components/template/template";
-import CustomProvider from "../lib/provider";
+import ReducerProvider from "../provider/reducer-provider";
 
 const Home: NextPage = () => {
   return (
     <div className=" bg-slate-100 h-[1240px] text-center font-mono">
-      <CustomProvider>
+      <ReducerProvider>
         <Template />
-      </CustomProvider>
+      </ReducerProvider>
     </div>
   );
 };

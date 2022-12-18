@@ -1,26 +1,54 @@
-import { useContext } from "react";
-import { CustomContext } from "../../lib/initial";
+import { createContext, useContext, useState } from "react";
 import Card from "../atoms/card";
 import TaskBar from "../molecules/task-bar";
 import ButtonComponent from "../organism/button-component";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "../../types/schema";
+import { TTaskState } from "../../types/task-state";
+import { ReducerContext } from "../../lib/initial-reducer";
+import { Flag } from "../../types/flag";
+
+const initialFlag: Flag = {
+  flag: true,
+  setFlag: () => {},
+};
+
+export const FlagContext = createContext(initialFlag);
 
 export default function Template() {
-  const { task } = useContext(CustomContext);
+  const { register, handleSubmit, formState, watch } = useForm<TTaskState>({
+    resolver: yupResolver(schema),
+  });
+  const [flag, setFlag] = useState<boolean>(false);
+  const { rstate } = useContext(ReducerContext);
 
   return (
     <div>
-      <TaskBar />
+      <FlagContext.Provider value={{ flag, setFlag }}>
+        <TaskBar
+          register={register}
+          handleSubmit={handleSubmit}
+          formState={formState}
+          watch={watch}
+        />
 
-      <ButtonComponent />
-
+        <ButtonComponent
+          register={register}
+          handleSubmit={handleSubmit}
+          watch={watch}
+        />
+      </FlagContext.Provider>
       <div className="  mt-5">
         <div className="flex justify-evenly ">
           <div>
             <div className=" mb-5 text-4xl ">Waiting</div>
-            {task.map((task, i) => {
+            {rstate.task.map((task) => {
               return (
-                <div key={i} className="mt-5 mb-5">
-                  <Card>{task}</Card>
+                <div key={task.id} className="mt-5 mb-5">
+                  <Card id={task.id} flag={false}>
+                    {task.data}
+                  </Card>
                 </div>
               );
             })}
@@ -28,7 +56,15 @@ export default function Template() {
           <ul className=" border-[2px] border-slate-400"></ul>
           <div>
             <div className=" mb-5 text-4xl ">Complete</div>
-            <Card>task</Card>
+            {rstate.comp.map((comp) => {
+              return (
+                <div key={comp.id} className="mt-5 mb-5">
+                  <Card id={comp.id} flag={true}>
+                    {comp.data}
+                  </Card>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

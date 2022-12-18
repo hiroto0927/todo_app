@@ -1,14 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
-import { CustomContext } from "../../lib/initial";
+import { ReducerContext } from "../../lib/initial-reducer";
 
 type TPropsCard = {
   children: React.ReactNode | JSX.Element | JSX.Element[];
+  id: number;
+  flag: boolean;
 };
 
 const Card = (props: TPropsCard) => {
-  const [flag, setFlag] = useState<boolean>(false);
-  const { setTask } = useContext(CustomContext);
+  const [flag, setFlag] = useState(props.flag);
+  const { dispatch } = useContext(ReducerContext);
+  const [id, setId] = useState<number>(0);
+
+  useEffect(() => {
+    setId(props.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl h-[100px]">
@@ -19,17 +27,15 @@ const Card = (props: TPropsCard) => {
           className="checkbox mr-5"
           onChange={() => {
             setFlag(!flag);
-            if (flag === true) {
-              console.log("--------TRUE---------");
-            } else {
-              console.log("--------FALSE---------");
-              setTask((prevState) =>
-                prevState.filter((value) => value !== props.children)
-              );
+            console.log(id);
+            if (flag === false) {
+              dispatch({ type: "check", payload: { id: id } });
+            } else if (flag === true) {
+              dispatch({ type: "uncheck", payload: { id: id } });
             }
           }}
         />
-        <div className="">{props.children}</div>
+        <div>{props.children}</div>
       </div>
     </div>
   );
