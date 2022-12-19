@@ -19,7 +19,7 @@ const Card = (props: TPropsCard) => {
   }, []);
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl h-[100px]">
+    <div className="card w-auto bg-base-100 shadow-xl h-[100px]">
       <div className=" flex mt-auto mb-auto ml-5 ">
         <input
           type="checkbox"

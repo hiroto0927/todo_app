@@ -1,7 +1,7 @@
 import { TTaskState } from "../types/task-state";
 import _ from "lodash";
 
-export type State = {
+type State = {
   task: TTaskState[];
   comp: TTaskState[];
 };
@@ -75,8 +75,6 @@ export const reducer = (state: State, action: Action): State => {
       };
 
     case "delete_task":
-      // comp_data.splice(0);
-      // console.log(comp_data);
       return { task: state.task, comp: [] };
   }
 };

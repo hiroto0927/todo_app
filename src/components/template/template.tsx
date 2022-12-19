@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { useContext } from "react";
 import Card from "../atoms/card";
 import TaskBar from "../molecules/task-bar";
 import ButtonComponent from "../organism/button-component";
@@ -30,13 +30,13 @@ export default function Template() {
         watch={watch}
       />
 
-      <div className="  mt-5">
-        <div className="flex justify-evenly ">
-          <div>
+      <div className="  mt-5 bg-slate-100">
+        <div className="flex ">
+          <div className=" w-1/2">
             <div className=" mb-5 text-4xl ">Waiting</div>
             {rstate.task.map((task) => {
               return (
-                <div key={task.id} className="mt-5 mb-5">
+                <div key={task.id} className="mt-5 mb-5 pl-[25%] pr-[25%]">
                   <Card id={task.id} flag={false}>
                     {task.data}
                   </Card>
@@ -45,11 +45,11 @@ export default function Template() {
             })}
           </div>
           <ul className=" border-[2px] border-slate-400"></ul>
-          <div>
+          <div className=" w-1/2">
             <div className=" mb-5 text-4xl ">Complete</div>
             {rstate.comp.map((comp) => {
               return (
-                <div key={comp.id} className="mt-5 mb-5">
+                <div key={comp.id} className="mt-5 mb-5 pl-[25%] pr-[25%]">
                   <Card id={comp.id} flag={true}>
                     {comp.data}
                   </Card>

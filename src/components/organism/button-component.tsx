@@ -16,7 +16,7 @@ type TPropsTask = {
 };
 
 export default function ButtonComponent(props: TPropsTask) {
-  const { rstate, dispatch } = useContext(ReducerContext);
+  const { dispatch } = useContext(ReducerContext);
 
   return (
     <div className=" flex pr-[33%] pl-[33%] justify-evenly mt-5">

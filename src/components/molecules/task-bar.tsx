@@ -24,7 +24,7 @@ const TaskBar = (props: TTaskBar) => {
       <div className="block text-gray-700 text-4xl font-bold w-1/3 text-right pr-5">
         Todo :
       </div>
-      <form className="w-2/3 pr-80" onSubmit={props.handleSubmit(onSubmit)}>
+      <form className="w-2/3 pr-[15%]" onSubmit={props.handleSubmit(onSubmit)}>
         <input
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight w-full "
           {...props.register("data")}
