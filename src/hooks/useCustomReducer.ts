@@ -4,6 +4,7 @@ import { reducer } from "../lib/reducer";
 const initialState = {
   task: [],
   comp: [],
+  nextId: 1,
 };
 
 export default function useCustomReducer() {

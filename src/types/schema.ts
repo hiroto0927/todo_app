@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 export const schema = yup
   .object({
-    id: yup.number(),
-    data: yup.string().required(),
+    taskName: yup.string().required("1文字以上のタスク名を入力してください"),
   })
   .required();

@@ -2,6 +2,7 @@ import { TTaskState } from "../types/task-state";
 import _ from "lodash";
 
 type State = {
+  nextId: number;
   task: TTaskState[];
   comp: TTaskState[];
 };
@@ -10,7 +11,7 @@ export type Action =
   | {
       type: "genelate_task";
       payload: {
-        data: TTaskState;
+        taskName: string;
       };
     }
   | {
@@ -35,18 +36,14 @@ export const reducer = (state: State, action: Action): State => {
 
   switch (action.type) {
     case "genelate_task":
-      if (action.payload.data.data !== "") {
-        return {
-          task: [...state.task, action.payload.data],
-          comp: [...state.comp],
-        };
-      } else {
-        return {
-          task: [...state.task],
-          comp: [...state.comp],
-        };
-      }
-
+      return {
+        nextId: state.nextId + 1,
+        task: [
+          ...state.task,
+          { id: state.nextId, data: action.payload.taskName },
+        ],
+        comp: [...state.comp],
+      };
     case "check":
       for (let i = 0; i < state.task.length; i++) {
         if (state.task[i].id === action.payload.id) {
@@ -59,6 +56,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         task: task_data,
         comp: comp_data,
+        nextId: state.nextId,
       };
 
     case "uncheck":
@@ -72,9 +70,10 @@ export const reducer = (state: State, action: Action): State => {
       return {
         task: task_data,
         comp: comp_data,
+        nextId: state.nextId,
       };
 
     case "delete_task":
-      return { task: state.task, comp: [] };
+      return { task: state.task, comp: [], nextId: state.nextId };
   }
 };
