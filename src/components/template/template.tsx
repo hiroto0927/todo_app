@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import TaskBar from "../molecules/task-bar";
-import { ReducerContext } from "../../lib/initial-reducer";
 import ButtonUI from "../atoms/button";
 import TaskList from "../organism/taskList";
+import { ReducerContext } from "../../hooks/useCustomReducer";
 
 export default function Template() {
-  const { dispatch } = useContext(ReducerContext);
-
-  const { rstate } = useContext(ReducerContext);
+  const { rstate, dispatch } = useContext(ReducerContext);
 
   return (
     <div>

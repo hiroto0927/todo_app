@@ -1,5 +1,5 @@
 export type TTaskState = {
   id: number;
-  data: string;
-  flag: boolean;
+  text_data: string;
+  check_flag: boolean;
 };

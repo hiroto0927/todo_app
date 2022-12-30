@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { ReducerContext } from "../../lib/initial-reducer";
 import ButtonUI from "../atoms/button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "../../types/schema";
+import { schema } from "../../hooks/react-hook-form/schema";
+import { ReducerContext } from "../../hooks/useCustomReducer";
 
 const TaskBar = () => {
   const { dispatch } = useContext(ReducerContext);

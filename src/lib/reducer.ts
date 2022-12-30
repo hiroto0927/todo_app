@@ -32,14 +32,17 @@ export const reducer = (state: State, action: Action): State => {
         nextId: state.nextId + 1,
         task: [
           ...state.task,
-          { id: state.nextId, data: action.payload.taskName, flag: false },
+          {
+            id: state.nextId,
+            text_data: action.payload.taskName,
+            check_flag: false,
+          },
         ],
       };
     case "check":
-      for (let i = 0; i < state.task.length; i++) {
-        if (state.task[i].id === action.payload.id) {
-          task_data[i].flag = !task_data[i].flag;
-
+      for (const task of task_data) {
+        if (task.id === action.payload.id) {
+          task.check_flag = !task.check_flag;
           break;
         }
       }
@@ -50,13 +53,9 @@ export const reducer = (state: State, action: Action): State => {
       };
 
     case "delete_task":
-      console.log(state.task.length);
-      for (let i = state.task.length - 1; i >= 0; i--) {
-        if (task_data[i].flag === true) {
-          task_data.splice(i, 1);
-        }
-      }
-
-      return { task: task_data, nextId: state.nextId };
+      return {
+        task: task_data.filter((task) => task.check_flag === false),
+        nextId: state.nextId,
+      };
   }
 };

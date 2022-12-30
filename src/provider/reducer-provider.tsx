@@ -1,5 +1,4 @@
-import useCustomReducer from "../hooks/useCustomReducer";
-import { ReducerContext } from "../lib/initial-reducer";
+import useCustomReducer, { ReducerContext } from "../hooks/useCustomReducer";
 
 type TPropsReducer = {
   children: JSX.Element | JSX.Element[];

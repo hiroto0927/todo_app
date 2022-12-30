@@ -13,11 +13,11 @@ export default function TaskList(props: TPropsTaskList) {
       <div className=" mb-5 text-4xl ">{props.label}</div>
 
       {props.task.map((task) => {
-        if (task.flag === props.completed) {
+        if (task.check_flag === props.completed) {
           return (
             <div key={task.id} className="mt-5 mb-5 pl-[25%] pr-[25%]">
-              <Card id={task.id} flag={task.flag}>
-                {task.data}
+              <Card id={task.id} flag={task.check_flag}>
+                {task.text_data}
               </Card>
             </div>
           );

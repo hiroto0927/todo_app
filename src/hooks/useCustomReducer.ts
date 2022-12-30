@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { reducer, State } from "../lib/reducer";
 
 const initialState: State = {
@@ -11,3 +11,13 @@ export default function useCustomReducer() {
 
   return { rstate, dispatch };
 }
+
+const initial_reducer: ReturnType<typeof useCustomReducer> = {
+  rstate: {
+    task: [],
+    nextId: 1,
+  },
+  dispatch: () => {},
+};
+
+export const ReducerContext = createContext(initial_reducer);
