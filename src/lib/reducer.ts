@@ -4,7 +4,6 @@ import _ from "lodash";
 type State = {
   nextId: number;
   task: TTaskState[];
-  comp: TTaskState[];
 };
 
 export type Action =
@@ -21,18 +20,11 @@ export type Action =
       };
     }
   | {
-      type: "uncheck";
-      payload: {
-        id: number;
-      };
-    }
-  | {
       type: "delete_task";
     };
 
 export const reducer = (state: State, action: Action): State => {
   const task_data = _.cloneDeep(state.task);
-  const comp_data = _.cloneDeep(state.comp);
 
   switch (action.type) {
     case "genelate_task":
@@ -40,40 +32,31 @@ export const reducer = (state: State, action: Action): State => {
         nextId: state.nextId + 1,
         task: [
           ...state.task,
-          { id: state.nextId, data: action.payload.taskName },
+          { id: state.nextId, data: action.payload.taskName, flag: false },
         ],
-        comp: [...state.comp],
       };
     case "check":
       for (let i = 0; i < state.task.length; i++) {
         if (state.task[i].id === action.payload.id) {
-          task_data.splice(i, 1);
-          comp_data.push(state.task[i]);
+          task_data[i].flag = !task_data[i].flag;
+
           break;
         }
       }
 
       return {
         task: task_data,
-        comp: comp_data,
-        nextId: state.nextId,
-      };
-
-    case "uncheck":
-      for (let i = 0; i < state.comp.length; i++) {
-        if (state.comp[i].id === action.payload.id) {
-          comp_data.splice(i, 1);
-          task_data.push(state.comp[i]);
-          break;
-        }
-      }
-      return {
-        task: task_data,
-        comp: comp_data,
         nextId: state.nextId,
       };
 
     case "delete_task":
-      return { task: state.task, comp: [], nextId: state.nextId };
+      console.log(state.task.length);
+      for (let i = state.task.length - 1; i >= 0; i--) {
+        if (task_data[i].flag === true) {
+          task_data.splice(i, 1);
+        }
+      }
+
+      return { task: task_data, nextId: state.nextId };
   }
 };

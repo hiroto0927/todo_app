@@ -26,13 +26,13 @@ export default function Template() {
 
         <div className="flex ">
           <div className=" w-1/2">
-            <TaskList tasks={rstate.task} label="Waiting" completed={false} />
+            <TaskList task={rstate.task} label="Waiting" completed={false} />
           </div>
 
           <ul className=" border-[2px] border-slate-400"></ul>
 
           <div className=" w-1/2">
-            <TaskList tasks={rstate.comp} label="Complete" completed />
+            <TaskList task={rstate.task} label="Complete" completed />
           </div>
         </div>
       </div>

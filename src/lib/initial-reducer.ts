@@ -4,7 +4,7 @@ import useCustomReducer from "../hooks/useCustomReducer";
 const reducer: ReturnType<typeof useCustomReducer> = {
   rstate: {
     task: [],
-    comp: [],
+    nextId: 1,
   },
   dispatch: () => {},
 };

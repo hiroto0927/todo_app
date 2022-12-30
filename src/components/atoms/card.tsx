@@ -27,12 +27,7 @@ const Card = (props: TPropsCard) => {
           className="checkbox mr-5"
           onChange={() => {
             setFlag(!flag);
-            console.log(id);
-            if (flag === false) {
-              dispatch({ type: "check", payload: { id: id } });
-            } else if (flag === true) {
-              dispatch({ type: "uncheck", payload: { id: id } });
-            }
+            dispatch({ type: "check", payload: { id: id } });
           }}
         />
         <div>{props.children}</div>
