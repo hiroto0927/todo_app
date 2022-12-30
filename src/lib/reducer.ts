@@ -1,7 +1,7 @@
 import { TTaskState } from "../types/task-state";
 import _ from "lodash";
 
-type State = {
+export type State = {
   nextId: number;
   task: TTaskState[];
 };

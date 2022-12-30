@@ -1,7 +1,7 @@
 import { useReducer } from "react";
-import { reducer } from "../lib/reducer";
+import { reducer, State } from "../lib/reducer";
 
-const initialState = {
+const initialState: State = {
   task: [],
   nextId: 1,
 };
