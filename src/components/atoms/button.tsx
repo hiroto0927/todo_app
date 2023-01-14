@@ -4,12 +4,17 @@ const ButtonUI = () => {};
 
 type TPropsButton = {
   children: React.ReactNode;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit";
 };
 
 const Blue = (props: TPropsButton) => {
   return (
-    <button className="btn btn-outline btn-info" onClick={props.onClick}>
+    <button
+      type={props.type}
+      className="btn btn-outline btn-info"
+      onClick={props.onClick}
+    >
       {props.children}
     </button>
   );

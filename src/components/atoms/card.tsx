@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { ReducerContext } from "../../lib/initial-reducer";
+import React, { useContext } from "react";
+import { ReducerContext } from "../../hooks/useCustomReducer";
 
 type TPropsCard = {
   children: React.ReactNode | JSX.Element | JSX.Element[];
@@ -9,30 +8,17 @@ type TPropsCard = {
 };
 
 const Card = (props: TPropsCard) => {
-  const [flag, setFlag] = useState(props.flag);
   const { dispatch } = useContext(ReducerContext);
-  const [id, setId] = useState<number>(0);
-
-  useEffect(() => {
-    setId(props.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="card w-auto bg-base-100 shadow-xl h-[100px]">
       <div className=" flex mt-auto mb-auto ml-5 ">
         <input
           type="checkbox"
-          checked={flag}
+          checked={props.flag}
           className="checkbox mr-5"
           onChange={() => {
-            setFlag(!flag);
-            console.log(id);
-            if (flag === false) {
-              dispatch({ type: "check", payload: { id: id } });
-            } else if (flag === true) {
-              dispatch({ type: "uncheck", payload: { id: id } });
-            }
+            dispatch({ type: "check", payload: { id: props.id } });
           }}
         />
         <div>{props.children}</div>

@@ -1,61 +1,36 @@
 import { useContext } from "react";
-import Card from "../atoms/card";
 import TaskBar from "../molecules/task-bar";
-import ButtonComponent from "../organism/button-component";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "../../types/schema";
-import { TTaskState } from "../../types/task-state";
-import { ReducerContext } from "../../lib/initial-reducer";
+import ButtonUI from "../atoms/button";
+import TaskList from "../organism/taskList";
+import { ReducerContext } from "../../hooks/useCustomReducer";
 
 export default function Template() {
-  const { register, handleSubmit, formState, watch } = useForm<TTaskState>({
-    resolver: yupResolver(schema),
-  });
-
-  const { rstate } = useContext(ReducerContext);
+  const { rstate, dispatch } = useContext(ReducerContext);
 
   return (
     <div>
-      <TaskBar
-        register={register}
-        handleSubmit={handleSubmit}
-        formState={formState}
-        watch={watch}
-      />
-
-      <ButtonComponent
-        register={register}
-        handleSubmit={handleSubmit}
-        watch={watch}
-      />
+      <TaskBar />
 
       <div className="  mt-5 bg-slate-100">
+        <div className="flex justify-end w-full px-10">
+          <ButtonUI.Yellow
+            onClick={() => {
+              dispatch({ type: "delete_task" });
+            }}
+          >
+            ALL Delete
+          </ButtonUI.Yellow>
+        </div>
+
         <div className="flex ">
           <div className=" w-1/2">
-            <div className=" mb-5 text-4xl ">Waiting</div>
-            {rstate.task.map((task) => {
-              return (
-                <div key={task.id} className="mt-5 mb-5 pl-[25%] pr-[25%]">
-                  <Card id={task.id} flag={false}>
-                    {task.data}
-                  </Card>
-                </div>
-              );
-            })}
+            <TaskList task={rstate.task} label="Waiting" completed={false} />
           </div>
+
           <ul className=" border-[2px] border-slate-400"></ul>
+
           <div className=" w-1/2">
-            <div className=" mb-5 text-4xl ">Complete</div>
-            {rstate.comp.map((comp) => {
-              return (
-                <div key={comp.id} className="mt-5 mb-5 pl-[25%] pr-[25%]">
-                  <Card id={comp.id} flag={true}>
-                    {comp.data}
-                  </Card>
-                </div>
-              );
-            })}
+            <TaskList task={rstate.task} label="Complete" completed />
           </div>
         </div>
       </div>
